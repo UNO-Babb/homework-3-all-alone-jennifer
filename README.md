@@ -64,7 +64,7 @@ In the terminal window you will need to install Flask in your Code Space
 pip install Flask
 ```
 
-After that, you can run BoardGame.py and it will create a web server which can be viewed in a browser window.
+After that, you can run BoardGame.py and it will create a web sepip insrver which can be viewed in a browser window.
 
 
 ### Final Submission

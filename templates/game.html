@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snakes and Ladders</title>
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-template-rows: repeat(5, 50px);
+        }
+        .cell {
+            border: 1px solid black;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 50px;
+            height: 50px;
+            width: 50px;
+        }
+        .player {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Snakes and Ladders</h1>
+    <div id="board">
+        {% for i in range(board_size, 0, -1) %}
+            <div class="cell">
+                {% for player in game_state["players"] %}
+                    {% if player["position"] == i %}
+                        <span class="player">{{ player["name"] }}</span>
+                    {% endif %}
+                {% endfor %}
+                {{ i }}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <button id="roll-dice">Roll Dice</button>
+        <p id="dice-result"></p>
+        <p id="game-message"></p>
+    </div>
+
+    <script>
+        document.getElementById("roll-dice").onclick = async () => {
+            const response = await fetch("/roll_dice", { method: "POST" });
+            const data = await response.json();
+
+            document.getElementById("dice-result").textContent = "Dice Roll: " + data.dice_roll;
+            document.getElementById("game-message").textContent = data.message || "";
+            location.reload();
+        };
+    </script>
+</body>
+</html>
+
